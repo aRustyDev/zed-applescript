@@ -1,0 +1,43 @@
+id = "{{id}}"
+name = "{{name}}"
+version = "0.0.1"
+schema_version = 1
+authors = ["{{author}} <{{email}}>"]
+description = "{{description}}"
+repository = "https://github.com/{{owner}}/{{id}}"
+
+{{#tree-sitter}}
+[grammars.{{.name}}]
+repository = "https://github.com/{{.repo}}"
+rev = "{{.githash}}"
+
+{{/tree-sitter}}
+
+
+{{#lang-servers}}
+[language-servers.{{.name}}]
+name = "{{.name}} LSP"
+languages = [{{#languages}}"{{.}}",{{/languages}}]
+
+{{/lang-servers}}
+{{#debug-adapters}}
+[debug_adapters.{{.name}}]
+# Optional relative path to the JSON schema for the debug adapter configuration schema. Defaults to `debug_adapter_schemas/$DEBUG_ADAPTER_NAME_ID.json`.
+# Note that while this field is optional, a schema is mandatory.
+schema_path = "debug_adapter_schemas/{{.name}}.json"
+
+{{/debug-adapters}}
+{{#debug-locators}}
+[debug_locators.{{.name}}]
+
+{{/debug-locators}}
+{{#debug-locators}}
+[slash_commands.{{.name}}]
+description = "{{.description}}"
+requires_argument = {{.arg}}
+
+{{/debug-locators}}
+{{#mcp}}
+[context_servers.{{.name}}]
+
+{{/mcp}}
